@@ -2,25 +2,32 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
     
     - name: Set up JDK
       uses: actions/setup-java@v3
       with:
         java-version: '11'
         distribution: 'temurin'
-    
+
     - name: Compile Java Files
       run: |
-        javac Assignment\ 2/src/LoginApp.java
-        javac Assignment\ 2/src/LoginAppTest.java
-    
+        javac -d "Assignment 2/out" "Assignment 2/src/LoginApp.java" "Assignment 2/src/LoginAppTest.java"
+
+    - name: Run Java Application
+      run: |
+        java -cp "Assignment 2/out" LoginApp
+
     - name: Run Tests
-      run: java -cp "Assignment 2/src" LoginAppTest
+      run: |
+        java -cp "Assignment 2/out;Assignment 2/lib/junit-platform-console-standalone.jar" org.junit.platform.console.ConsoleLauncher --scan-class-path

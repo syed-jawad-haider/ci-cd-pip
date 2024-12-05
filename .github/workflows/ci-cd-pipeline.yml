@@ -5,23 +5,27 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  build:
     runs-on: windows-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v2
       with:
-        python-version: '3.x'  # Adjust based on your project needs
+        java-version: '11'  # Adjust based on your project's requirements
 
-    - name: Install dependencies
+    - name: Compile Java code
       run: |
-        pip install -r requirements.txt  # Adjust based on your project
+        javac -d bin src/*.java  # Adjust based on your directory structure
 
+    - name: Run Java application
+      run: |
+        java -cp bin LoginApp  # Adjust based on your main class path
+
+    # Optional: Run tests if you have them defined
     - name: Run tests
-      shell: cmd
       run: |
-        python -m unittest discover  # Adjust based on your testing framework
+        java -cp bin org.junit.runner.JUnitCore YourTestClassName  # Replace with your actual test class name

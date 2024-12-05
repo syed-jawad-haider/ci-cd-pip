@@ -5,19 +5,27 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  build:
     runs-on: windows-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v2
       with:
-        python-version: '3.x'  # Adjust based on your project needs
+        java-version: '11'  # Adjust based on your project's requirements
+
+    - name: Compile Java code
+      run: |
+        cd "Assignment 2/src"
+        javac -d ../out LoginApp.java LoginAppTest.java  # Compiling both main and test classes
+
+    - name: Run Java application
+      run: |
+        java -cp "Assignment 2/out" LoginApp  # Running the main application class
 
     - name: Run tests
-      shell: cmd
       run: |
-        python -m unittest discover  # Adjust based on your testing framework
+        java -cp "Assignment 2/out;C:\path\to\junit-platform-console-standalone.jar" org.junit.runner.JUnitCore LoginAppTest  # Adjust path to JUnit jar if necessary

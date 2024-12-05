@@ -11,8 +11,8 @@ public class LoginApp extends JFrame {
     private JTextField emailField;
     private JPasswordField passwordField;
     private static final String DB_URL = "jdbc:mysql://avnadmin:AVNS_BOwgsttXw1DG074BVy8@mysql-1e7edf9b-lhr-b3a4.e.aivencloud.com:25416/softwaretesting?ssl-mode=REQUIRED";
-    private static final String DB_USER = "your_username";  // Replace with actual username
-    private static final String DB_PASSWORD = "your_password";  // Replace with actual password
+    private static final String DB_USER = "johndoe@example.com";  // Replace with actual username
+    private static final String DB_PASSWORD = "password123";  // Replace with actual password
 
     public LoginApp() {
         setTitle("Login Screen Jawad");

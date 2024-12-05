@@ -22,11 +22,11 @@ jobs:
 
     - name: Compile Java Files
       run: |
-        javac -d "Assignment 2/out" "Assignment 2/src/LoginApp.java" "Assignment 2/src/LoginAppTest.java"
+        javac -d "Assignment 2/out" "Assignment 2/src/LoginApp.java" "Assignment 2/src/LoginAppTest.java"  # Compile both main and test classes
 
     - name: Run Java Application
       run: |
-        java -cp "Assignment 2/out" LoginApp
+        java -cp "Assignment 2/out" LoginApp  # Run the main application class
 
     - name: Run Tests
       run: |

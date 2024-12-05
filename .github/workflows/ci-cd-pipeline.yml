@@ -17,10 +17,6 @@ jobs:
       with:
         python-version: '3.x'  # Adjust based on your project needs
 
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt  # Adjust based on your project
-
     - name: Run tests
       shell: cmd
       run: |

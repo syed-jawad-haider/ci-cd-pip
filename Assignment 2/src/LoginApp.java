@@ -14,8 +14,8 @@ public class LoginApp extends JFrame {
 
 
     public LoginApp() {
-        setTitle("Login Screen");
-        setSize(400, 250);
+        setTitle("Login Screen Jawad");
+        setSize(350, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 

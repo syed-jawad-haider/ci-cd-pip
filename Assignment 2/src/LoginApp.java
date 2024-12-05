@@ -11,10 +11,11 @@ public class LoginApp extends JFrame {
     private JTextField emailField;
     private JPasswordField passwordField;
     private static final String DB_URL = "jdbc:mysql://avnadmin:AVNS_BOwgsttXw1DG074BVy8@mysql-1e7edf9b-lhr-b3a4.e.aivencloud.com:25416/softwaretesting?ssl-mode=REQUIRED";
-
+    private static final String DB_USER = "your_username";  // Replace with actual username
+    private static final String DB_PASSWORD = "your_password";  // Replace with actual password
 
     public LoginApp() {
-        setTitle("Login Screen");
+        setTitle("Login Screen Jawad");
         setSize(350, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -46,7 +47,7 @@ public class LoginApp extends JFrame {
             String email = emailField.getText();
             String password = new String(passwordField.getPassword()); // Password is ignored for validation
 
-            String userName = authenticateUser(email);
+            String userName = authenticateUser(email,password);
             if (userName != null) {
                 JOptionPane.showMessageDialog(null, "Welcome, " + userName + "!", "Login Successful", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -55,23 +56,27 @@ public class LoginApp extends JFrame {
         }
     }
 
-    private String authenticateUser(String email) {
-        String userName = null;
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String query = "SELECT name FROM User WHERE Email = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, email);
-            ResultSet rs = stmt.executeQuery();
+    
+    private String authenticateUser(String email, String password) {
+     String userName = null;
+     try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+        // Adjust the query to check both email and password
+        String query = "SELECT name FROM User WHERE Email = ? AND Password = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, email);
+        stmt.setString(2, password);  // Set the password parameter
 
-            if (rs.next()) {
-                userName = rs.getString("Name");
-            }
-            rs.close();
-            stmt.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            userName = rs.getString("name");  // Ensure the column name matches your database schema
         }
-        return userName;
+        rs.close();
+        stmt.close();
+     } catch (Exception e) {
+        e.printStackTrace();
+     }
+    return userName;
     }
 
     public static void main(String[] args) {

@@ -19,13 +19,13 @@ jobs:
 
     - name: Compile Java code
       run: |
-        javac -d bin src/*.java  # Adjust based on your directory structure
+        cd "Assignment 2/src"
+        javac -d ../out LoginApp.java LoginAppTest.java  # Compiling both main and test classes
 
     - name: Run Java application
       run: |
-        java -cp bin LoginApp  # Adjust based on your main class path
+        java -cp "Assignment 2/out" LoginApp  # Running the main application class
 
-    # Optional: Run tests if you have them defined
     - name: Run tests
       run: |
-        java -cp bin org.junit.runner.JUnitCore YourTestClassName  # Replace with your actual test class name
+        java -cp "Assignment 2/out;C:\path\to\junit-platform-console-standalone.jar" org.junit.runner.JUnitCore LoginAppTest  # Adjust path to JUnit jar if necessary
